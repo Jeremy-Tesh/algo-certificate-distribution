@@ -14,13 +14,11 @@ const FormStyle=({placeholder,onChange})=>(
     
 );
 
-// const TOKEN = process.env.REACT_APP_TOKEN;
-// const ALGOD_SERVER = process.env.REACT_APP_ALGOD_SERVER;
-// const PORT = process.env.REACT_APP_PORT;
+const TOKEN = {'X-API-Key': process.env.REACT_APP_TOKEN};
+const ALGOD_SERVER = process.env.REACT_APP_ALGOD_SERVER;
+const PORT = process.env.REACT_APP_PORT;
 
-const TOKEN = { 'X-API-Key': 'EPFcpomolu2Q3Jwo7hlWVayJEwKHjjSn24GM6b8j' };
-const ALGOD_SERVER = 'https://testnet-algorand.api.purestake.io/ps2';
-const PORT = 443;
+
 
 const CreateAsset = () => {
 
@@ -50,7 +48,8 @@ const CreateAsset = () => {
                 total: +totalUnit.current,
                 decimals: +decimals.current,
                 note: AlgoSigner.encoding.stringToByteArray(note.current),
-                suggestedParams: {...txParamsJS}
+                suggestedParams: {...txParamsJS},
+                
               });
             
             const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
