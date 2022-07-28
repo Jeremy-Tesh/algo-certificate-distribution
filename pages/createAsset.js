@@ -36,7 +36,7 @@ const CreateAsset = () => {
         setLoading(true)
         let client =   new algosdk.Algodv2(TOKEN, ALGOD_SERVER, PORT)
                 
-        //Query Algod to get testnet suggested params
+        //Query Algod to get testnet suggested param
         let txParamsJS = await client.getTransactionParams().do()
 
         try{
