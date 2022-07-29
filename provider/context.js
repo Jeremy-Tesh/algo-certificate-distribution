@@ -1,7 +1,7 @@
 import algosdk from "algosdk"
-import crypto from "crypto"
 
-import  React, { useCallback, useEffect, useState } from 'react'
+
+import  React, { useEffect, useState } from 'react'
 
 
 export const AlgoContext = React.createContext();
@@ -65,6 +65,7 @@ export const AlgoProvider =({children}) => {
                 // console.log("conecting.....")
                 // let resp = await AlgoSigner.connect()
                 // console.log(resp)
+                AlgoSigner.connect()
                 const account =  await AlgoSigner.accounts({
                     ledger: 'TestNet'
                   })

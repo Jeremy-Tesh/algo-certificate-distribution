@@ -1,4 +1,4 @@
-import { Router } from 'next/router'
+import Router  from 'next/router'
 import React, { useContext } from 'react'
 import { AiFillPlayCircle } from 'react-icons/ai'
 import { AlgoContext } from '../provider/context'
@@ -42,7 +42,7 @@ console.log("account =",currentAccount)
   </div>
   
 <div className='flex mt-10'>
-<button onClick={() => Router.push("/createAsset")} className="flex m-4 flex-row justify-center items-center my-5 bg-[#9ba7d0] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">Create an Asset</button>
+<button onClick={()=>Router.push("/createAsset")} className="flex m-4 flex-row justify-center items-center my-5 bg-[#9ba7d0] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">Create an Asset</button>
 <button  className="flex m-4 flex-row justify-center items-center my-5 bg-[#9ba7d0] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">Register Student</button>
 </div>
   

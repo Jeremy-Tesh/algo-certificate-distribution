@@ -2,6 +2,8 @@ import React from 'react'
 import Router from 'next/router'
 
 function Home() {
+  console.log("home")
+  console.log("PORT IS",process.env.NEXT_PUBLIC_ALGOD_SERVER)
   return (
     <div className='h-full w-screen' >
       <div className="flex justify-center bg-bg-img items-center  h-screen w-screen">

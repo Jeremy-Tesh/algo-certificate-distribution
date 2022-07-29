@@ -1,8 +1,6 @@
 /*global AlgoSigner*/
 import React, {useContext, useRef, useState} from "react";
 
-// import { TransactionButton } from "../Button.styles";
-
 
 import { AlgoContext } from "../provider/context";
 const algosdk = require("algosdk");
@@ -14,11 +12,13 @@ const FormStyle=({placeholder,onChange})=>(
     
 );
 
-const TOKEN = {'X-API-Key': process.env.REACT_APP_TOKEN};
-const ALGOD_SERVER = process.env.REACT_APP_ALGOD_SERVER;
-const PORT = process.env.REACT_APP_PORT;
+const TOKEN = {'X-API-Key': process.env.NEXT_PUBLIC_TOKEN};
+const ALGOD_SERVER = process.env.NEXT_PUBLIC_ALGOD_SERVER;
+const PORT = process.env.NEXT_PUBLIC_PORT;
 
-
+console.log(TOKEN)
+console.log(ALGOD_SERVER)
+console.log(PORT)
 
 const CreateAsset = () => {
 
@@ -28,7 +28,7 @@ const CreateAsset = () => {
     const unitName = useRef()
     const totalUnit = useRef()
     const note = useRef()
-    const decimals = useRef()
+    const assetUrl = useRef()
     const [isLoading, setLoading] = useState(false)
 
     const createAsset = async () =>{
@@ -46,10 +46,11 @@ const CreateAsset = () => {
                 assetName: assetName.current,
                 unitName: unitName.current,
                 total: +totalUnit.current,
-                decimals: +decimals.current,
+                assetURL: assetUrl.current,
                 note: AlgoSigner.encoding.stringToByteArray(note.current),
                 suggestedParams: {...txParamsJS},
-                
+                freeze:currentAccount,
+                clawback:currentAccount,
               });
             
             const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
@@ -78,7 +79,7 @@ const CreateAsset = () => {
             <FormStyle onChange = {(e) => assetName.current = e.target.value} placeholder="Asset name" /><br/>
             <FormStyle onChange = {(e) => unitName.current = e.target.value} placeholder="Unit name" /><br/>
             <FormStyle onChange = {(e) => totalUnit.current = e.target.value} placeholder="Total units" /><br/>
-            <FormStyle onChange = {(e) => decimals.current = e.target.value} placeholder="Decimals" /><br/>
+            <FormStyle onChange = {(e) => assetUrl.current = e.target.value} placeholder="Asset url" /><br/>
             <FormStyle onChange = {(e) => note.current = e.target.value} placeholder="Enter note" /><br/>
             <button  onClick ={createAsset}>{isLoading ? "loading...": "Sign Create Asset"}</button>
         </div>
