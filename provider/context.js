@@ -70,6 +70,7 @@ export const AlgoProvider =({children}) => {
                     ledger: 'TestNet'
                   })
                   if(account.length){
+                    console.log(account)
                     console.log(account[0].address)
                     const addr = account[0].address
                     setCurrentAccount(addr)
