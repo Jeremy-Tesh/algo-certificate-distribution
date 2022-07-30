@@ -29,10 +29,7 @@ const CreateAsset = () => {
     const [isLoading, setLoading] = useState(false)
 
     
-    // const kc=new algosdk.Algodv2(TOKEN,currentAccount)
-    
-    // let wallets = client.listWallets().wallets;
-    // console.log(wallets)
+   
    const wallet = async()=>{
     let client =   new algosdk.Kmd(TOKEN, ALGOD_SERVER, PORT)
     let walletid = null;
