@@ -16,9 +16,6 @@ const TOKEN = {'X-API-Key': process.env.NEXT_PUBLIC_TOKEN};
 const ALGOD_SERVER = process.env.NEXT_PUBLIC_ALGOD_SERVER;
 const PORT = process.env.NEXT_PUBLIC_PORT;
 
-console.log(TOKEN)
-console.log(ALGOD_SERVER)
-console.log(PORT)
 
 const CreateAsset = () => {
 
