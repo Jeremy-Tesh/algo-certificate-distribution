@@ -45,54 +45,38 @@ const CreateAsset = () => {
 
 
     const createAsset = async () =>{
-        // await AlgoSigner.connect();
-        setLoading(true)
-        let client =   new algosdk.Algodv2(TOKEN, ALGOD_SERVER, PORT)
-
-
-                
-        //Query Algod to get testnet suggested param
-        let txParamsJS = await client.getTransactionParams().do()
-        let note=AlgoSigner.encoding.stringToByteArray(note.current)
-        let addr =currentAccount;
-        let totalIssuance=1;
-        let reserve=currentAccount;
-        let freeze= currentAccount;
-        let clawback= currentAccount;
-        let defaultFrozen= false;
-        let decimals =0;
-        let unitName=unitName.current;
-        let assetName=assetName.current;
-        let assetUrl= assetUrl.current;
-        let manager =currentAccount;
-
-        try{
-        
-            const txn = await new algosdk.makeAssetCreateTxnWithSuggestedParams(addr,note,totalIssuance,decimals,defaultFrozen,manager,reserve,freeze,clawback,unitName,assetName,assetUrl,txParamsJS)
-            
-              let rawSignedTxn = txn.signTxn(currentAccount)
-              let tx = await client.sendRawTransaction(rawSignedTxn).do();
-              let assetID = null;
-              const ptx = await algosdk.waitForConfirmation(client, tx.txId, 4);
-              assetID = ptx["asset-index"];
-              //Get the completed Transaction
-              console.log("Transaction " + tx.txId + " confirmed in round " + ptx["confirmed-round"]);
-
-
-
-            // const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
-
-            //  let signedTxs  = await AlgoSigner.signTxn([{txn: txn_b64}])
-            //   console.log(signedTxs)
-
-            //   // Get the base64 encoded signed transaction and convert it to binary
-            // let binarySignedTx = await AlgoSigner.encoding.base64ToMsgpack(signedTxs[0].blob);
-
-            //  // Send the transaction through the SDK client
-            // let id = await client.sendRawTransaction(binarySignedTx).do();
-            //     console.log(id)
-            //     setLoading(false)
-           
+         // await AlgoSigner.connect();
+         setLoading(true)
+         let client =   new algosdk.Algodv2(TOKEN, ALGOD_SERVER, PORT)
+                 
+         //Query Algod to get testnet suggested param
+         let txParamsJS = await client.getTransactionParams().do()
+ 
+         try{
+         
+             const txn = await new algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
+                 from: currentAccount,
+                 assetName: assetName.current,
+                 assetURL: assetUrl.current,
+                 total: +totalUnit.current,
+                 note: AlgoSigner.encoding.stringToByteArray(note.current),
+                 suggestedParams: {...txParamsJS},
+                 
+               });
+             
+             const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+ 
+              let signedTxs  = await AlgoSigner.signTxn([{txn: txn_b64}])
+               console.log(signedTxs)
+ 
+               // Get the base64 encoded signed transaction and convert it to binary
+             let binarySignedTx = await AlgoSigner.encoding.base64ToMsgpack(signedTxs[0].blob);
+ 
+              // Send the transaction through the SDK client
+             let id = await client.sendRawTransaction(binarySignedTx).do();
+                 console.log(id)
+                 setLoading(false)
+ 
 
         }catch(err){
             console.log(err)
@@ -106,9 +90,8 @@ const CreateAsset = () => {
             <div>
             <h1 className="text-white font-extrabold text-3xl pb-4">Create Asset</h1>
             <FormStyle onChange = {(e) => assetName.current = e.target.value} placeholder="Asset name" /><br/>
-            <FormStyle onChange = {(e) => unitName.current = e.target.value} placeholder="Unit name" /><br/>
+            <FormStyle onChange = {(e) => assetUrl.current = e.target.value} placeholder="Asset Url" /><br/>
             <FormStyle onChange = {(e) => totalUnit.current = e.target.value} placeholder="Total units" /><br/>
-            <FormStyle onChange = {(e) => assetUrl.current = e.target.value} placeholder="Asset url" /><br/>
             <FormStyle onChange = {(e) => note.current = e.target.value} placeholder="Enter note" /><br/>
             <button className="m-2 mt-7 text-white bg-transparent hover:bg-white-500 text-white-700 font-semibold hover:text-blue-400 py-2 px-4 border border-white-500 hover:border-blue-300 rounded" onClick ={wallet}>{isLoading ? "loading...": "Sign Create Asset"}</button>
             </div>
