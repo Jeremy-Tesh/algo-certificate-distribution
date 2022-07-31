@@ -35,6 +35,7 @@ function Trainee() {
 
   useEffect(() => {
     getAccounts();
+   
   }, []);
   const AccountList = () => {
     return accounts.map((account) => {
@@ -57,14 +58,18 @@ function Trainee() {
     })
       .then((d) => {
         setAccounts(d);
+        setAccount(d[0].address)
+       
+       
       })
       .catch((e) => {
         console.error(e);
       });
+
+     
   };
-  const toggle = () => {
-    setDropDown(!dropDown);
-  };
+ 
+ 
 
 //   const optinTx = async (txId) => {
 //     let txConf = await fetch('https://tenxdapp.herokuapp.com/api/v2/nft/opt', {
@@ -92,6 +97,7 @@ function Trainee() {
   const handleOptin = async () => {
     // console.log(name, email, address, assetID);
     // fetch('https://tenxdapp.herokuapp.com/api/v/trainees/optin', {
+        console.log(accounts)
     if (account === '') {
       alert('Please select an account before opting in for an asset!');
       return;
@@ -118,8 +124,8 @@ function Trainee() {
     //   alert('something happened...');
     //   return;
     // }
-    console.log(res);
-    const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+    
+    const txn = new algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
       from:account,
       to:account,
       assetIndex:assetID,
@@ -179,15 +185,16 @@ function Trainee() {
                   {/* <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Public Address</label>
+                       
+                      </FormGroup>
+                    </Col>
+                  </Row> */}
+                   <label>Public Address</label>
                         <Input
                           placeholder="0x390f0f9fk930kf39k3mfe9"
                           type="text"
                           onChange={(e) => setAddress(e.target.value)}
                         />
-                      </FormGroup>
-                    </Col>
-                  </Row> */}
                  
                      
                         <label>Asset-ID</label>
