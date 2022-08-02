@@ -7,6 +7,9 @@ const Input=({placeholder,name,type})=>{
     )
 
 }
+const handleSubmit=(e)=>{
+  e.preventDefault
+}
 
 function Register() {
   return (
