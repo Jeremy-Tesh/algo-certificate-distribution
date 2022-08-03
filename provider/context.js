@@ -6,23 +6,37 @@ import  React, { useEffect, useState } from 'react'
 
 export const AlgoContext = React.createContext();
 
-const defaultFrozen = false;
-const unitName = "WNM";
-const assetName = "WomenMoon";
-const url =
-  "https://gateway.pinata.cloud/ipfs/QmP2AhgkNCkXQ6oLTBmcEVi9XAFmruAKY1bKFPFbyE8xkB?preview=";
-const managerAddr = "";
-const reserveAddr = undefined;
-const freezeAddr = undefined;
-const clawbackAddr = undefined;
-const metadata = undefined;
-const total = 1;
-const decimals = 0;
+
 
 export const AlgoProvider =({children}) => {
 
 
     const[currentAccount, setCurrentAccount]= useState("");
+    const[optinList, setOptinList]=useState([]);
+    
+   
+    const optinRequest=(name,address)=>{
+
+    //  const request ={
+    //   id:optinList.length +1,
+    //   name:name,
+    //   address:address
+    //  }
+     setOptinList([...optinList, {
+      id:1,
+      name:name,
+      address:address
+     }]);
+     
+    //  setOptinList( optinList)
+     
+     console.log("request successfully sent",optinList)
+    
+
+    }
+
+
+
 
     const createAccount = function () {
         try {
@@ -95,7 +109,7 @@ useEffect(()=> {
       
 
       return (
-        <AlgoContext.Provider value={{CheckAlgoSigner, ConnectAlgoSigner, currentAccount}}>
+        <AlgoContext.Provider value={{CheckAlgoSigner, ConnectAlgoSigner, currentAccount,optinList,optinRequest,setOptinList}}>
             {children}
         </AlgoContext.Provider>
       )

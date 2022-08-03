@@ -38,7 +38,7 @@ console.log("account =",currentAccount)
       
       <button onClick={()=>Router.push("/createAsset")} className="flex flex-row justify-center items-center font-bold my-5 bg-[#c8cec8] px-6 p-3 rounded-full cursor-pointer  hover:bg-[#2e3036] hover:text-white text-black">  <AiFillPlayCircle className="text-black mr-2" /><p>Create an Asset</p></button>
 <button onClick={()=>Router.push("/register")}   className="flex flex-row justify-center items-center font-bold my-5 bg-[#c8cec8]  px-6 p-3 rounded-full cursor-pointer hover:bg-[#2e3036] hover:text-white text-black">  <AiFillPlayCircle className="text-black mr-2" />Register Student</button>
-    
+<button onClick={()=>Router.push("/optinList")}   className="flex flex-row justify-center items-center font-bold my-5 bg-[#c8cec8]  px-6 p-3 rounded-full cursor-pointer hover:bg-[#2e3036] hover:text-white text-black">  <AiFillPlayCircle className="text-black mr-2" />Optin List</button>  
      
   
   </div>
