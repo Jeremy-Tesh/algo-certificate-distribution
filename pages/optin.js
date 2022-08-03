@@ -14,6 +14,7 @@ import {
 import algosdk from 'algosdk';
 import { AlgoContext } from '../provider/context';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import axios from 'axios';
 
 function Trainee() {
 
@@ -24,7 +25,7 @@ function Trainee() {
   const email = useRef();
   const assetID= useRef();
   const [accounts, setAccounts]= useState([]);
-  const account = useRef();
+  const[account,setAccount]= useState('')
   
 
   useEffect(() => {
@@ -89,25 +90,22 @@ function Trainee() {
     // console.log(txConf);
 //   };
   const handleOptin = async () => {
-    // console.log(name, email, address, assetID);
-    // fetch('https://tenxdapp.herokuapp.com/api/v/trainees/optin', {
+  
     if (account === '') {
       alert('Please select an account before opting in for an asset!');
       return;
     }
 
-//  const request ={
-//       id:1,
-//       name:name.current,
-//       address:account.current
-//      }
-//     setOptinList(optinList=>[...optinList, request]);
-     
-//     //  setOptinList( optinList)
-     
-//      console.log("request successfully sent",optinList)
+// optinRequest(name.current,account.current)
 
-optinRequest(name.current,account.current)
+const data ={
+  name:name.current,
+  email:email.current,
+  assetId:parseInt(assetID.current),
+  account:account,
+}
+console.log(data)
+await axios.post('http://localhost:8000/optin/add',data).then(res => console.log(res.data))
 
 
 
@@ -172,17 +170,9 @@ optinRequest(name.current,account.current)
   };
 
   return (
-    <div className='h-screen w-screen'>
-      <div className="h-full bg-bg-img flex flex-col justify-center items-center ">
-       
-         
-          
-            
-               
-               
-               
-               
-                     
+    <div className='h-screen w-screen bg-bg-img flex  justify-center items-center '>
+      <div className="flex flex-col w-[600px] ">
+
                         <label>Full Name</label>
                         <Input
                           placeholder="your-full-name"
@@ -199,13 +189,7 @@ optinRequest(name.current,account.current)
                           onChange={(e) => email.current=e.target.value}
                         />
                      
-                  {/* <Row>
-                    <Col md="6">
-                      <FormGroup>
-                       
-                      </FormGroup>
-                    </Col>
-                  </Row> */}
+                 
                    <label>Public Address</label>
                    <DropdownButton
         id="dropdown-button-dark-example2"
@@ -215,7 +199,7 @@ optinRequest(name.current,account.current)
         className="mt-2"
       >
         {accounts.map(acc=>{
-          return <Dropdown.Item key={acc.address} onClick={(e)=>account.current=e.target.innerHTML}>
+          return <Dropdown.Item key={acc.address} onClick={(e)=>setAccount(e.target.innerHTML)}>
           {acc.address}
         </Dropdown.Item>
         })}

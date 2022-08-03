@@ -1,14 +1,31 @@
-const Joi = require('joi');
 const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const usersRouter = require('./routes/users');
+const optinRouter =require('./routes/optin')
+
+require('dotenv').config();
+
 const app = express();
 
-const cors = require('cors')
-const mongoose = require('mongoose')
 
-require('dotenv').config()
+
 
 app.use(express.json());
 app.use(cors())
+
+
+
+
+app.use('/users', usersRouter)
+app.use('/optin',optinRouter)
+
+
+
+
+
+
+
 
 
 
@@ -19,6 +36,8 @@ const students =[
 
 
 const uri = process.env.ATLAS_URI;
+
+
 mongoose.connect(uri)
 const connection = mongoose.connection;
 connection.once('open',() =>{

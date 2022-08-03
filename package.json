@@ -2,6 +2,7 @@
   "name": "algo-certificate-distribution1",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8000",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,6 +12,7 @@
   "dependencies": {
     "algosdk": "^1.19.0",
     "autoprefixer": "^10.4.7",
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "dotenv": "^16.0.1",
     "fs": "^0.0.1-security",
@@ -20,7 +22,10 @@
     "react-bootstrap": "^2.4.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
     "reactstrap": "^9.1.2",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
     "tailwindcss": "^3.1.6"
   },
   "devDependencies": {
