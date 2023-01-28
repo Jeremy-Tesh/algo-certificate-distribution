@@ -1,18 +1,9 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Home from './home'
-
-
-
+import React from "react";
+import Navbar from "../components/Navbar";
+import Home from "./home";
 
 function Index() {
-
-  
-  return (
-   
-      <Home/>
-    
-  )
+  return <Home />;
 }
 
-export default Index
+export default Index;
